@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    tools:context=".DetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.flaviofaria.kenburnsview.KenBurnsView
+                android:id="@+id/kenBurnsView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/colorAccent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/kenBurnsView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/kenBurnsView" />
+
+            <ImageView
+                android:id="@+id/img_favorite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="80dp"
+                android:src="@drawable/ic_circle_love_blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/kenBurnsView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <TextView
+                android:id="@+id/txt_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="352dp"
+                android:background="@drawable/round"
+                android:drawableRight="@drawable/ic_play_circle_filled_black_24dp"
+                android:padding="10dp"
+                android:text="@string/watch_now"
+                android:textColor="@color/colorMyGreen"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:singleLine="false"
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/kenBurnsView"
+                app:layout_constraintTop_toBottomOf="@+id/kenBurnsView"
+                tools:text="@string/title" />
+
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                tools:text="@string/year" />
+
+            <TextView
+                android:id="@+id/separator1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="|"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_year"
+                app:layout_constraintEnd_toStartOf="@+id/tv_text_rate"
+                app:layout_constraintStart_toEndOf="@+id/tv_year"
+                app:layout_constraintTop_toTopOf="@+id/tv_year" />
+
+            <TextView
+                android:id="@+id/tv_text_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:drawableLeft="@drawable/ic_star_black_15dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/separator1"
+                app:layout_constraintStart_toEndOf="@+id/separator1"
+                app:layout_constraintTop_toTopOf="@+id/separator1"
+                tools:text="@string/rate" />
+
+
+
+            <ImageView
+                android:id="@+id/img_rate"
+                android:layout_width="51dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_star_black_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_year" />
+
+            <ImageView
+                android:id="@+id/img_watch"
+                android:layout_width="54dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="86dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_assignment_black_24dp"
+                app:layout_constraintStart_toEndOf="@+id/img_rate"
+                app:layout_constraintTop_toBottomOf="@+id/tv_year" />
+
+            <ImageView
+                android:id="@+id/img_share"
+                android:layout_width="54dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_share_black_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.363"
+                app:layout_constraintStart_toEndOf="@+id/img_watch"
+                app:layout_constraintTop_toBottomOf="@+id/tv_year" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rate"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/img_rate"
+                app:layout_constraintStart_toStartOf="@+id/img_rate"
+                app:layout_constraintTop_toBottomOf="@+id/img_rate"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/watchlist"
+                app:layout_constraintEnd_toEndOf="@+id/img_watch"
+                app:layout_constraintStart_toStartOf="@+id/img_watch"
+                app:layout_constraintTop_toBottomOf="@+id/img_watch" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/share"
+                app:layout_constraintEnd_toEndOf="@+id/img_share"
+                app:layout_constraintStart_toStartOf="@+id/img_share"
+                app:layout_constraintTop_toBottomOf="@+id/img_share" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/description"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/tv_text_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAlignment="textStart"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_description"
+                app:layout_constraintStart_toStartOf="@+id/tv_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description"
+                tools:text="@string/text_description" />
+
+
+
+
+
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

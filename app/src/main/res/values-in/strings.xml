@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Movie Catalog API</string>
+    <string name="tab_text_1">Film</string>
+    <string name="tab_text_2">Siaran TV</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Judul</string>
+    <string name="year">Tahun</string>
+    <string name="rate">Peringkat</string>
+    <string name="director">Sutradara</string>
+    <string name="text_director">Text Director</string>
+    <string name="genres">Genre</string>
+    <string name="cast">Pemeran</string>
+    <string name="text_cast">Text Cast</string>
+    <string name="rate_this">Rating</string>
+    <string name="watchlist">Daftar Tonton</string>
+    <string name="description">Deskripsi</string>
+    <string name="text_description">Text Description</string>
+    <string name="share">Bagikan</string>
+    <string name="duration">Durasi</string>
+    <string name="setting">Pengaturan Bahasa</string>
+    <string name="text_favorite">Jadikan favorit</string>
+    <string name="text_rate">Berikan Peringkat</string>
+    <string name="text_watch">Tambahkan ke daftar tonton</string>
+    <string name="text_share">Bagikan</string>
+    <string name="watch_now">Tonton Sekarang</string>
+    <string name="lang">id-ID</string>
+    <string name="title_activity_detail">DetailActivity</string>
+</resources>

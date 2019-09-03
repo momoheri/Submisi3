@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Movie Catalog API</string>
+    <string name="tab_text_1">Movies</string>
+    <string name="tab_text_2">TV Show</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="year">Year</string>
+    <string name="rate">Rate</string>
+    <string name="director">Director</string>
+    <string name="text_director">Text Director</string>
+    <string name="genres">Genres</string>
+    <string name="cast">Cast</string>
+    <string name="text_cast">Text Cast</string>
+    <string name="rate_this">Rate</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="description">Description</string>
+    <string name="text_description">Text Description</string>
+    <string name="share">Share</string>
+    <string name="duration">Duration</string>
+    <string name="setting">Language Setting</string>
+    <string name="text_favorite">Set to favorite</string>
+    <string name="text_rate">Rate</string>
+    <string name="text_watch">Add to Watch List</string>
+    <string name="text_share">Share</string>
+    <string name="watch_now">Watch Now</string>
+    <string name="lang">en-EN</string>
+    <string name="title_activity_detail">DetailActivity</string>
+</resources>

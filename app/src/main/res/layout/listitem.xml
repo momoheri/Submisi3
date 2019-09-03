@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="283dp">
+
+        <ImageView
+            android:id="@+id/img_list"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="4dp"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:maxLines="3"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/img_list"
+            app:layout_constraintTop_toBottomOf="@id/img_list"
+            tools:text="@string/title" />
+
+        <TextView
+            android:id="@+id/tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="@string/year" />
+
+        <ImageView
+            android:id="@+id/img_start"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/star"
+            app:layout_constraintStart_toStartOf="@id/tv_year"
+            app:layout_constraintTop_toBottomOf="@id/tv_year" />
+
+        <TextView
+            android:id="@+id/tv_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="3dp"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@+id/img_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_year"
+            tools:text="@string/rate" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
