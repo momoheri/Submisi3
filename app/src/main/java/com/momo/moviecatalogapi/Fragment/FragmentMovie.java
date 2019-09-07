@@ -3,7 +3,7 @@ package com.momo.moviecatalogapi.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +33,7 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentMovie extends Fragment {
+    private final static String MOVIE_STATE = "movie_state";
     private MovieAdapter adapter;
     private RecyclerView rvCatalogue;
     private GridLayoutManager grid;
@@ -68,9 +69,14 @@ public class FragmentMovie extends Fragment {
 
         rvCatalogue.setHasFixedSize(true);
         rvCatalogue.setAdapter(adapter);
+        if (savedInstanceState == null) {
+            showLoading(true);
+            loadData();
+        } else {
+            listData = savedInstanceState.getParcelableArrayList(MOVIE_STATE);
+            adapter.addAll(listData);
+        }
 
-        showLoading(true);
-        loadData();
         itemClick();
         return v;
     }
@@ -85,6 +91,7 @@ public class FragmentMovie extends Fragment {
                 if (movie != null) {
                     if (adapter != null) {
                         adapter.addAll(movie.getResults());
+                        listData.addAll(movie.getResults());
                         showLoading(false);
                     }
                 } else {
@@ -134,5 +141,11 @@ public class FragmentMovie extends Fragment {
                 showSelectedItem(adapter.getItem(i));
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(MOVIE_STATE, listData);
     }
 }

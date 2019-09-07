@@ -21,21 +21,14 @@ public class DetailActivity extends AppCompatActivity implements AsyncCallback {
     public static final String EXTRA_DATA = "extra_data";
     public static final String EXTRA_MODE = "extra_mode";
     private static final String STATE_RESULT = "state_result";
+    private static final String STATE_MODE = "state_mode";
     ImageView poster, imgFavorite, imgRate, imgWatch, imgShare;
     TextView tvTitle, tvYear, tvRate, tvDesc;
     private String image_url;
-    private String TEXT_TITLE = "text_title";
     private ProgressBar progressBar;
-
-    @Override
-    protected void onSaveInstanceState(Bundle state){
-        super.onSaveInstanceState(state);
-        state.putString(STATE_RESULT, tvTitle.getText().toString());
-        state.putString(STATE_RESULT, tvYear.getText().toString());
-        state.putString(STATE_RESULT, tvRate.getText().toString());
-        state.putString(STATE_RESULT, tvDesc.getText().toString());
-        state.putString(STATE_RESULT, image_url);
-    }
+    private DataMovie dataMovie;
+    private DataTvShow dataTvShow;
+    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +47,40 @@ public class DetailActivity extends AppCompatActivity implements AsyncCallback {
         tvRate = findViewById(R.id.tv_text_rate);
         tvDesc = findViewById(R.id.tv_text_desc);
 
-        DataAsync dataAsync = new DataAsync(this);
-        dataAsync.execute("Background");
 
-        if (savedInstanceState != null){
-            String result = savedInstanceState.getString(STATE_RESULT);
-            tvTitle.setText(result);
-            tvYear.setText(result);
-            tvRate.setText(result);
-            tvDesc.setText(result);
-            image_url = result;
+        mode = getIntent().getStringExtra(EXTRA_MODE);
+        if (savedInstanceState != null) {
+
+            mode = savedInstanceState.getString(STATE_MODE);
+            if (mode.equals("Movie")) {
+                dataMovie = savedInstanceState.getParcelable(STATE_RESULT);
+                tvTitle.setText(dataMovie.getTitle());
+                tvYear.setText(dataMovie.getReleaseDate());
+                tvRate.setText(Double.toString(dataMovie.getVoteAverage()));
+                tvDesc.setText(dataMovie.getOverview());
+                image_url = Path.IMG_URL_LIST + dataMovie.getPosterPath();
+                Glide.with(this)
+                        .load(image_url)
+                        .into(poster);
+
+                showLoading(false);
+            } else {
+                dataTvShow = savedInstanceState.getParcelable(STATE_RESULT);
+                tvTitle.setText(dataTvShow.getTitle());
+                tvYear.setText(dataTvShow.getFirst_air_date());
+                tvRate.setText(Double.toString(dataTvShow.getVote_average()));
+                tvDesc.setText(dataTvShow.getOverview());
+                image_url = Path.IMG_URL_LIST + dataTvShow.getPoster_path();
+                Glide.with(this)
+                        .load(image_url)
+                        .into(poster);
+
+                showLoading(false);
+            }
+
+        } else {
+            DataAsync dataAsync = new DataAsync(this);
+            dataAsync.execute("Background");
         }
 
     }
@@ -84,30 +101,30 @@ public class DetailActivity extends AppCompatActivity implements AsyncCallback {
 
     @Override
     public void onPostExecute(String text) {
-        String mode = getIntent().getStringExtra(EXTRA_MODE);
-        if (mode.equals("Movie") ){
-            DataMovie d = getIntent().getParcelableExtra(EXTRA_DATA);
-            tvTitle.setText(d.getTitle());
-            tvYear.setText(d.getReleaseDate());
-            tvRate.setText(Double.toString(d.getVoteAverage()));
-            tvDesc.setText(d.getOverview());
-            image_url = Path.IMG_URL_LIST + d.getPosterPath();
+
+        if (mode.equals("Movie")) {
+            dataMovie = getIntent().getParcelableExtra(EXTRA_DATA);
+            tvTitle.setText(dataMovie.getTitle());
+            tvYear.setText(dataMovie.getReleaseDate());
+            tvRate.setText(Double.toString(dataMovie.getVoteAverage()));
+            tvDesc.setText(dataMovie.getOverview());
+            image_url = Path.IMG_URL_LIST + dataMovie.getPosterPath();
             Glide.with(this)
                     .load(image_url)
                     .into(poster);
-            TEXT_TITLE = d.getTitle();
+
             showLoading(false);
-        } else if(mode.equals("TvShow")){
-            DataTvShow d = getIntent().getParcelableExtra(EXTRA_DATA);
-            tvTitle.setText(d.getTitle());
-            tvYear.setText(d.getFirst_air_date());
-            tvRate.setText(Double.toString(d.getVote_average()));
-            tvDesc.setText(d.getOverview());
-            image_url = Path.IMG_URL_LIST+d.getPoster_path();
+        } else {
+            dataTvShow = getIntent().getParcelableExtra(EXTRA_DATA);
+            tvTitle.setText(dataTvShow.getTitle());
+            tvYear.setText(dataTvShow.getFirst_air_date());
+            tvRate.setText(Double.toString(dataTvShow.getVote_average()));
+            tvDesc.setText(dataTvShow.getOverview());
+            image_url = Path.IMG_URL_LIST + dataTvShow.getPoster_path();
             Glide.with(this)
                     .load(image_url)
                     .into(poster);
-            TEXT_TITLE = d.getTitle();
+
             showLoading(false);
         }
 
@@ -137,9 +154,9 @@ public class DetailActivity extends AppCompatActivity implements AsyncCallback {
             String output = null;
             try {
                 output = strings[0];
-                Thread.sleep(3000);
+                Thread.sleep(2000);
 
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 Log.d(LOG_ASYNC, ex.getMessage());
             }
 
@@ -151,11 +168,21 @@ public class DetailActivity extends AppCompatActivity implements AsyncCallback {
             super.onPostExecute(result);
             Log.d(LOG_ASYNC, "onPostExecute");
             AsyncCallback mylistener = this.myListener.get();
-            if(mylistener != null){
+            if (mylistener != null) {
                 mylistener.onPostExecute(result);
             }
         }
     }
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mode.equals("Movie")) {
+            outState.putParcelable(STATE_RESULT, dataMovie);
+            outState.putString(STATE_MODE, mode);
+        } else {
+            outState.putParcelable(STATE_RESULT, dataTvShow);
+            outState.putString(STATE_MODE, mode);
+        }
+    }
 }

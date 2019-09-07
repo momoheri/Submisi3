@@ -53,7 +53,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         viewHolder.bind(dataMovie);
     }
 
-    public DataMovie getItem(int i){
+    public DataMovie getItem(int i) {
         return mData.get(i);
     }
 

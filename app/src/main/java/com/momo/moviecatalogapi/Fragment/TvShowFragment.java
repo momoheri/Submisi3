@@ -2,13 +2,11 @@ package com.momo.moviecatalogapi.Fragment;
 
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +20,7 @@ import com.momo.moviecatalogapi.Support.ItemClickSupport;
 import com.momo.moviecatalogapi.model.DataTvShow;
 import com.momo.moviecatalogapi.model.TvShow;
 import com.momo.moviecatalogapi.service.APIService;
-import com.momo.moviecatalogapi.service.AsyncCallback;
 
-import java.lang.ref.WeakReference;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
@@ -36,18 +32,18 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class TvShowFragment extends Fragment {
+    private final static String TV_STATE = "tv_state";
     private TvShowAdapter adapter;
     private RecyclerView rvCatalogue;
     private GridLayoutManager grid;
     private ProgressBar progressBar;
-
+    private ArrayList<DataTvShow> listData = new ArrayList<>();
 
     private APIService apiService;
 
     public TvShowFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -69,42 +65,46 @@ public class TvShowFragment extends Fragment {
         adapter = new TvShowAdapter(getContext());
 
 
-        grid = new GridLayoutManager(getContext(),2);
+        grid = new GridLayoutManager(getContext(), 2);
         rvCatalogue.setLayoutManager(grid);
 
         rvCatalogue.setHasFixedSize(true);
         rvCatalogue.setAdapter(adapter);
+        if (savedInstanceState == null) {
+            showLoading(true);
+            loadData();
+        } else {
+            listData = savedInstanceState.getParcelableArrayList(TV_STATE);
+            adapter.addAll(listData);
+        }
 
-        showLoading(true);
-        loadData();
         itemClick();
         return v;
     }
 
 
-
-
-    private void loadData(){
+    private void loadData() {
         apiService = new APIService();
         apiService.getTvShow(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
                 TvShow tvShow = (TvShow) response.body();
 
-                if (tvShow != null){
-                    if (adapter != null){
+                if (tvShow != null) {
+                    if (adapter != null) {
                         adapter.addAll(tvShow.getResults());
+                        listData.addAll(tvShow.getResults());
                         showLoading(false);
                     }
-                }else {
+                } else {
                     showLoading(false);
-                    Toast.makeText(getContext(),"Data not found!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Data not found!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                if (t instanceof SocketTimeoutException){
+                if (t instanceof SocketTimeoutException) {
                     Toast.makeText(getContext(), "Request time out.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Connection Failed!", Toast.LENGTH_SHORT).show();
@@ -113,7 +113,7 @@ public class TvShowFragment extends Fragment {
         });
     }
 
-    private void showSelectedItem(DataTvShow data){
+    private void showSelectedItem(DataTvShow data) {
         DataTvShow d = new DataTvShow();
         d.setTitle(data.getTitle());
         d.setFirst_air_date(data.getFirst_air_date());
@@ -127,7 +127,7 @@ public class TvShowFragment extends Fragment {
         startActivity(in);
     }
 
-    private void itemClick(){
+    private void itemClick() {
         ItemClickSupport.addTo(rvCatalogue).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView rv, int i, View v) {
@@ -144,5 +144,9 @@ public class TvShowFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(TV_STATE, listData);
+    }
 }

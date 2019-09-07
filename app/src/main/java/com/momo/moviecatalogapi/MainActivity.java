@@ -13,9 +13,9 @@ import android.view.View;
 import com.momo.moviecatalogapi.Adapter.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String STATE_RESULT = "state_result";
     ViewPager viewPager;
     SectionsPagerAdapter sectionsPagerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +37,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //outState.putString(STATE_RESULT, viewPager.);
-    }
+    
 }
